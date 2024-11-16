@@ -8,6 +8,7 @@ import AboutAs from '../pages/AboutAs';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Error from '../pages/Error';
+import Cart from '../pages/Cart';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home/>
+      },
+      {
+        path: 'cart',
+        element: <Cart/>
       },
       {
         path: 'categories',

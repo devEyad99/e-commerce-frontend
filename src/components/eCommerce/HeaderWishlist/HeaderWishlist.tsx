@@ -1,13 +1,13 @@
 
 
 import { useEffect, useState } from 'react';
-import Logo from '../../../asset/svg/cart.svg?react';
-import { useAppSelector } from '../../../store/categories/hooks';
+import Logo from '../../../asset/svg/wishlist.svg?react';
+// import { useAppSelector } from '../../../store/categories/hooks';
 import { getCartTotalQuentity } from '../../../store/cart/selectors';
 import { useNavigate } from 'react-router-dom';
 
-function HeaderBasket() {
-  const totalQuentity = useAppSelector(getCartTotalQuentity);
+function HeaderWishlist() {
+  const totalQuentity = 0;
   const [animate, setAnimate] = useState(false);
   const navigate = useNavigate();
 
@@ -21,9 +21,10 @@ function HeaderBasket() {
   }, [totalQuentity]);
 
   return (
-    <div className="flex items-center cursor-pointer" onClick={() => navigate('/cart')}>
-      <div className="relative flex items-center font-bold">
-        <Logo title="basket icon" />
+    <div className="flex items-center cursor-pointer border-r border-black" onClick={() => navigate('/wishlist')}>
+      <div className='mr-5  flex items-center border-sold'> 
+      <div className="relative font-bold">
+        <Logo title="wishlist icon" />
         {totalQuentity > 0 && (
             <div
               className={`bg-cyan-400 h-[22px] w-[22px] rounded-full text-center border border-solid absolute top-[-16px] right-[-5px] text-[12px] ${animate ? 'animate-scale' : ''}`}
@@ -32,9 +33,10 @@ function HeaderBasket() {
             </div>
           )}
       </div>
-      <span className="ml-1 font-bold">Cart</span>
+      <span className="font-bold">Wishlist</span>
+     </div>
     </div>
   );
 }
 
-export default HeaderBasket;
+export default HeaderWishlist;
