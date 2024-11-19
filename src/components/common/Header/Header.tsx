@@ -12,7 +12,7 @@ const Header = () => {
         <div className="text-inherit no-underline text-4xl m-2 flex-1">
           <h1 className="m-0 flex">
             <span className="block mr-1">our</span>
-            <span className="block mr-1 bg-blue-500 text-white rounded px-2">Ecom</span>
+            <span className="block mr-1 bg-blue-500 text-white rounded px-2">eCom</span>
           </h1>
         </div>
 
