@@ -8,8 +8,7 @@ type CartItemProps = TProducts & {
 };
 
 const CartItem = memo(({ id, title, img, price, max, quantity, changeQuantityHandler, removeItemHandler }: CartItemProps) => {
- console.log('hi cart');
- 
+
   const renderOption = Array(max).fill(0).map((_, ind) => {
     const quantity = ++ind;
     return (

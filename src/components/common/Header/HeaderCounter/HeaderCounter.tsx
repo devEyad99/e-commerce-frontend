@@ -1,13 +1,16 @@
 
 
 import { useEffect, useState } from 'react';
-import Logo from '../../../asset/svg/cart.svg?react';
-import { useAppSelector } from '../../../store/categories/hooks';
-import { getCartTotalQuentity } from '../../../store/cart/selectors';
 import { useNavigate } from 'react-router-dom';
 
-function HeaderBasket() {
-  const totalQuentity = useAppSelector(getCartTotalQuentity);
+type HeaderCounter = {
+  totalQuentity: number,
+  svgIcon: React.ReactNode,
+  to: string,
+  title: string
+}
+
+function HeaderCounter({totalQuentity, svgIcon, to, title}: HeaderCounter) {
   const [animate, setAnimate] = useState(false);
   const navigate = useNavigate();
 
@@ -21,9 +24,9 @@ function HeaderBasket() {
   }, [totalQuentity]);
 
   return (
-    <div className="flex items-center cursor-pointer" onClick={() => navigate('/cart')}>
+    <div className="flex items-center cursor-pointer" onClick={() => navigate(to)}>
       <div className="relative flex items-center font-bold">
-        <Logo title="basket icon" />
+        {svgIcon}
         {totalQuentity > 0 && (
             <div
               className={`bg-cyan-400 h-[22px] w-[22px] rounded-full text-center border border-solid absolute top-[-16px] right-[-5px] text-[12px] ${animate ? 'animate-scale' : ''}`}
@@ -32,9 +35,9 @@ function HeaderBasket() {
             </div>
           )}
       </div>
-      <span className="ml-1 font-bold">Cart</span>
+      <span className="ml-1 font-bold">{title}</span>
     </div>
   );
 }
 
-export default HeaderBasket;
+export default HeaderCounter;

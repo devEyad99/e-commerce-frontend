@@ -1,9 +1,10 @@
 
-
 import { NavLink } from "react-router-dom";
-import { HeaderBasket, HeaderWishlist } from '../../eCommerce';
+import HeaderLiftBar from "./HeaderLiftBar/HeaderLiftBar";
+
 
 const Header = () => {
+  
   return (
     <header>
       <div className="flex justify-between items-center p-4">
@@ -15,11 +16,8 @@ const Header = () => {
           </h1>
         </div>
 
-        {/* Cart and Wishlist */}
-        <div className="flex-1 flex justify-end items-center space-x-6">
-          <HeaderWishlist />
-          <HeaderBasket />
-        </div>
+       <HeaderLiftBar/>
+
       </div>
 
       {/* Navigation */}
