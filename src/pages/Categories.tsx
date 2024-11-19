@@ -1,22 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../store/categories/hooks";
-import { actGetCategories, cleanUpCategoriesRecords } from "../store/categories/categoriesSlice"; 
+import useCategories from "../hooks/useCategories";
 import { Loading } from "../components/feedback";
 import Category from "../components/eCommerce/Category/Category";
-import { useEffect, useMemo } from "react";
 import { GridList, Heading } from "../components/common";
 
 export default function Categories() {
-  const dispatch = useAppDispatch();
-  const { categories, error, loading } = useAppSelector((state) => state.categories);
-
-  useEffect(() => {
-    dispatch(actGetCategories());
-    return () => {
-      dispatch(cleanUpCategoriesRecords());
-    };
-  }, [dispatch]);
-
-  const title = useMemo(() => "Categories", []);
+  
+  const { categories, title, loading, error } = useCategories();
 
   return (
     <> 

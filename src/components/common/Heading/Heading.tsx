@@ -9,7 +9,7 @@ const Heading = memo(
       </h2>
     );
   },
-  (prevProps, nextProps) => prevProps.title === nextProps.title // Prevent re-renders if title is unchanged
+ 
 );
 
 export default Heading;

@@ -3,7 +3,14 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json",
-     "@customTypes/*": ["src/types/*"]
+     "@customTypes/*": ["src/types/*"],
+      "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+          "@customTypes/*": ["src/types/*"],
+          "@hooks/*": ["src/hooks/*"]
+        }
+      }
   }
   ]
 }
