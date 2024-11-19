@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import Logo from '../../../asset/svg/wishlist.svg?react';
-// import { useAppSelector } from '../../../store/categories/hooks';
+import { useAppSelector } from '../../../store/categories/hooks';
 import { getCartTotalQuentity } from '../../../store/cart/selectors';
 import { useNavigate } from 'react-router-dom';
 
 function HeaderWishlist() {
-  const totalQuentity = 0;
+  const totalQuentity = useAppSelector((state) => state.wishlist.itemsId);
   const [animate, setAnimate] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,11 +26,11 @@ function HeaderWishlist() {
       <div className='mr-5  flex items-center border-sold'> 
       <div className="relative font-bold">
         <Logo title="wishlist icon" />
-        {totalQuentity > 0 && (
+        {totalQuentity.length > 0 && (
             <div
               className={`bg-cyan-400 h-[22px] w-[22px] rounded-full text-center border border-solid absolute top-[-16px] right-[-5px] text-[12px] ${animate ? 'animate-scale' : ''}`}
             >
-              {totalQuentity}
+              {totalQuentity.length}
             </div>
           )}
       </div>

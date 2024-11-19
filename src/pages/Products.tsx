@@ -12,7 +12,13 @@ export default function Products() {
   const dispatch = useAppDispatch();
   const cartItem = useAppSelector(state => state.cart.items);
   const {error, loading, records} = useAppSelector((state) => state.products);
-  const productFullInfo = records.map((el) => ({...el, quantity: cartItem[el.id as number] || 0}));
+  const wishListItems = useAppSelector((state) => state.wishlist.itemsId);
+  
+  const productFullInfo = records.map((el) => ({
+    ...el,
+    quantity: cartItem[el.id as number] || 0,
+    isLiked: wishListItems.includes(el.id as number),
+  }));
 
   useEffect(() => {
     dispatch(actGetProducts(params.prefix as string));

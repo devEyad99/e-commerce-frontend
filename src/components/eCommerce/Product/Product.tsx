@@ -5,12 +5,16 @@ import { actLikeToggle } from "../../../store/wishlist/wishlistSlice";
 import { addToCart } from "../../../store/cart/cartSlice";
 import { memo, useEffect, useState } from "react";
 import Like from '../../../asset/svg/like.svg?react';
-// import LikeFill from "../../../asset/svg/like-fill.svg?react";
+import LikeFill from "../../../asset/svg/like-fill.svg?react";
+import Spinner from "../../common/Spinner/Spinner";
 
-const Product = ({ id, title, cat_prefix, price, img, max, quantity }: TProducts) => {
+
+const Product = ({ id, title, cat_prefix, price, img, max, quantity, isLiked }: TProducts) => {
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const [currentRemainingQuantity, setCurrentRemainingQuantity] = useState(Math.max(0, (max ?? 0) - (quantity ?? 0)));
+  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     if (isBtnDisabled) {
@@ -30,13 +34,20 @@ const Product = ({ id, title, cat_prefix, price, img, max, quantity }: TProducts
   };
 
   const likeToggleHandler = () => {
-    dispatch(actLikeToggle(id));
+    if(isLoading){
+      return;
+    }
+    setIsLoading(true);
+    dispatch(actLikeToggle(id as number))
+    .unwrap()
+    .then(() => setIsLoading(false))
+    .catch(() => setIsLoading(false))
   }
 
   return (
     <div className="w-48 flex flex-col justify-between p-4 bg-gray-200 shadow-md rounded-lg relative">
       <div onClick={likeToggleHandler} className="absolute top-1.5 right-1.5 bg-white w-7 h-7 rounded flex items-center justify-center cursor-pointer hover:shadow-md">
-        <Like />
+       {isLoading ? (<Spinner/>) : isLiked ? (<LikeFill/> ) : (<Like />)}
       </div>
       <div className="flex justify-center">
         <img
