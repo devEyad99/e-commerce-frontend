@@ -2,13 +2,14 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../..';
 import { TProducts } from '../../../types/product';
+import { isAxiosErrorHandler } from '../../../utils';
 
 type TResponse = TProducts[];
 
 const actGetProductById = createAsyncThunk(
   'cart/actGetProductById',
   async (_, thunkAPI) => {
-    const { rejectWithValue, fulfillWithValue, getState } = thunkAPI;
+    const { rejectWithValue, fulfillWithValue, getState, signal } = thunkAPI;
     const { cart } = getState() as RootState;
     const itemsId = Object.keys(cart.items);
     if (itemsId.length === 0) {
@@ -17,15 +18,14 @@ const actGetProductById = createAsyncThunk(
     try {
       const concatenatedItemsId = itemsId.map((el) => `id=${el}`).join('&');
       const res = await axios.get<TResponse>(
-        `/products/?${concatenatedItemsId}`
+        `/products/?${concatenatedItemsId}`,
+        {
+          signal,
+        }
       );
       return res.data;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data);
-      } else {
-        return rejectWithValue('unknown error');
-      }
+      return rejectWithValue(isAxiosErrorHandler(error));
     }
   }
 );

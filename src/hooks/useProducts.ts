@@ -24,9 +24,10 @@ const useProducts = () => {
   );
 
   useEffect(() => {
-    dispatch(actGetProducts(params.prefix as string));
+    const promise = dispatch(actGetProducts(params.prefix as string));
     return () => {
       dispatch(cleanUpProductRecords());
+      promise.abort();
     };
   }, [dispatch, params]);
 

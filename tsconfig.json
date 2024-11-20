@@ -1,16 +1,15 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@customTypes/*": ["src/types/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json",
-     "@customTypes/*": ["src/types/*"],
-      "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-          "@customTypes/*": ["src/types/*"],
-          "@hooks/*": ["src/hooks/*"]
-        }
-      }
-  }
+    { "path": "./tsconfig.node.json" }
   ]
 }

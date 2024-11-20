@@ -25,5 +25,5 @@
     "composite": true,
     "emitDeclarationOnly": true,
   },
-  "include": ["src"]
+  "include": ["src/**/*"]
 }

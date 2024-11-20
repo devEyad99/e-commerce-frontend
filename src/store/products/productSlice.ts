@@ -1,7 +1,6 @@
-import { TProducts } from './../../types/product';
+import { TProducts, TLoading, isString } from './../../types/';
 import { createSlice } from '@reduxjs/toolkit';
 import actGetProducts from './act/actGetProducts';
-import { TLoading } from '../../types/shared';
 
 // interface for state
 export interface ICategoriesState {
@@ -34,7 +33,9 @@ const productsSlice = createSlice({
     });
     builder.addCase(actGetProducts.rejected, (state, action) => {
       state.loading = 'failed';
-      state.error = action.error.message as string;
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
     });
   },
 });

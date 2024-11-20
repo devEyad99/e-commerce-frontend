@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { TCategory } from "../../../types/category";
+import { TCategory } from "../../../types";
 
 export default function Category({title, img, prefix}: TCategory) {
   return (

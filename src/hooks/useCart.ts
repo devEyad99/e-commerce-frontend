@@ -15,9 +15,10 @@ const useCart = () => {
   );
 
   useEffect(() => {
-    dispatch(actGetProductById());
+    const promise = dispatch(actGetProductById());
     return () => {
       dispatch(cleanCartProductFullInfo());
+      promise.abort();
     };
   }, [dispatch]);
 

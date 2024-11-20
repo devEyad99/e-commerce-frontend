@@ -1,4 +1,4 @@
-import { TProducts } from "../../../types/product";
+import { TProducts } from "../../../types";
 import { memo } from "react";
 
 type CartItemProps = TProducts & {
