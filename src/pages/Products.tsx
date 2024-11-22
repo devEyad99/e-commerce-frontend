@@ -10,7 +10,7 @@ export default function Products() {
   return (
     <> 
       <Heading title={productTitle} />
-      <Loading loading={loading} error={error}>
+      <Loading loading={loading} error={error} type="product">
         <GridList records={productFullInfo} renderItem={(product) => <Product {...product} />} />
       </Loading>
     </>

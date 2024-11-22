@@ -9,7 +9,7 @@ export default function Cart() {
   return (
     <>
       <Heading title="Your Cart" />
-      <Loading loading={loading} error={error}>
+      <Loading loading={loading} error={error} type="cart">
         {products.length === 0 ? (
           <div className="text-center text-lg font-bold">Your cart is empty</div>
         ) : (

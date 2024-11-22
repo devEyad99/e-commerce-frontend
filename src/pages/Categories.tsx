@@ -10,7 +10,7 @@ export default function Categories() {
   return (
     <> 
       <Heading title={title} />
-      <Loading loading={loading} error={error}>
+      <Loading loading={loading} error={error} type="category">
         <GridList records={categories} renderItem={(category) => <Category title={category.title} img={category.img} prefix={category.prefix} />} />
       </Loading>
     </>
