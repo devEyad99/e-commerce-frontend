@@ -3,10 +3,10 @@ import { isAxiosError } from 'axios';
 
 const isAxiosErrorHandler = (error: unknown) => {
   if (isAxiosError(error)) {
-    return error.response?.data;
+    return error.response?.data.message || error.message;
   } else {
-    return 'unknown error';
+    return 'An unexpected error';
   }
 };
-console.log('isAxiosErrorHandler loaded');
+
 export default isAxiosErrorHandler;

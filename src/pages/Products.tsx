@@ -11,7 +11,7 @@ export default function Products() {
     <> 
       <Heading title={productTitle} />
       <Loading loading={loading} error={error} type="product">
-        <GridList records={productFullInfo} renderItem={(product) => <Product {...product} />} />
+        <GridList emptyMessage="there are no products" records={productFullInfo} renderItem={(product) => <Product {...product} />} />
       </Loading>
     </>
   );

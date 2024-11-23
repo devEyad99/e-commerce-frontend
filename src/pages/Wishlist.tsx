@@ -9,9 +9,11 @@ export default function Wishlist() {
   return (
     <div>
       <Heading title={title} />
+      <div className="text-center text-lg font-bold">
       <Loading loading={loading} error={error} type="product">
-        <GridList records={records} renderItem={(product) => <Product {...product} />} />
+        <GridList emptyMessage="your wishlist is empty" records={records} renderItem={(product) => <Product {...product} />} />
       </Loading>
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { TLoading } from "../../../types/shared"
 import CategorySkeletons from "../skeletons/CategorySkeleton/CategorySkeletons";
 import ProductSkeleton from "../skeletons/ProductSkeleton/ProductSkeleton";
 import CartSkeleton from "../skeletons/CartSkeleton/CartSkeleton";
-
+import LottieHandler from "../LottieHandler/LottieHandler";
 
 const skeletonsTypes = {
   product: ProductSkeleton,
@@ -25,7 +25,11 @@ export default function Loading({loading, error, children, type="category"}: Loa
     return <div className="text-center"><Component/></div>
   }
   if(loading === 'failed'){
-    return <div className="text-center text-red-500">{error}</div>
+    return <div className="text-center text-red-500">
+      <LottieHandler type="error" message={error as string}/>
+    </div>
+    
   }
+  console.log(error);
   return <>{children}</>
 }

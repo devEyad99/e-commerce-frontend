@@ -11,7 +11,7 @@ export default function Categories() {
     <> 
       <Heading title={title} />
       <Loading loading={loading} error={error} type="category">
-        <GridList records={categories} renderItem={(category) => <Category title={category.title} img={category.img} prefix={category.prefix} />} />
+        <GridList emptyMessage="there are no categoies" records={categories} renderItem={(category) => <Category title={category.title} img={category.img} prefix={category.prefix} />} />
       </Loading>
     </>
   );

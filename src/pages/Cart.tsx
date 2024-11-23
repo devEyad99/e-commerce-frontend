@@ -1,7 +1,7 @@
 import useCart from "../hooks/useCart";
 import { Heading } from "../components/common";
 import { CartItemList, CartSubtotalPrice } from "../components/eCommerce";
-import { Loading } from "../components/feedback";
+import { Loading, LottieHandler } from "../components/feedback";
 
 export default function Cart() {
   
@@ -11,7 +11,9 @@ export default function Cart() {
       <Heading title="Your Cart" />
       <Loading loading={loading} error={error} type="cart">
         {products.length === 0 ? (
-          <div className="text-center text-lg font-bold">Your cart is empty</div>
+          <div className="text-center text-lg font-bold">
+            <LottieHandler type="shoppingError" message="Your cart is empty"/>
+          </div>
         ) : (
           <>
             <CartItemList

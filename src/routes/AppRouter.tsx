@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import PageSuspenseFullback from '../components/feedback/PageSuspenseFullback/PAgeSuspenseFullback';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 
 const Home = lazy(() => import ('../pages/Home'));
@@ -9,51 +9,59 @@ const Categories = lazy(() => import ('../pages/Categories'));
 const AboutAs = lazy(() => import ('../pages/AboutAs'));
 const Login = lazy(() => import ('../pages/Login'));
 const Signup = lazy(() => import ('../pages/Signup'));
-const Error = lazy(() => import ('../pages/Error'));
 const Cart = lazy(() => import ('../pages/Cart'));
 const Wishlist = lazy(() => import ('../pages/Wishlist'));
+import Error from '../pages/Error';
 
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout/>,
+    element:(
+      <Suspense fallback={
+        <div className='flex flex-col items-center'>
+          <h5 className='mt-20'>Loading please wait...</h5>
+        </div>
+      }>
+        <MainLayout/>
+      </Suspense>
+    ),
     errorElement: <Error/>,
     children: [
       {
         index: true,
         element: (
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
             <Home/>
-        </Suspense>
+        </PageSuspenseFullback>
        )
       },
       {
         path: 'cart',
         element:
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
           <Cart/>
-        </Suspense>
+          </PageSuspenseFullback>
       },{
         path: 'wishlist',
         element: 
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
           <Wishlist/>
-        </Suspense>
+          </PageSuspenseFullback>
       },
       {
         path: 'categories',
         element:
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
           <Categories/>
-        </Suspense>
+        </PageSuspenseFullback>
       },
       {
         path: 'categories/products/:prefix',
         element:
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
           <Products/>
-        </Suspense>,
+        </PageSuspenseFullback>,
         loader: ({ params }) => {
           if (typeof params.prefix !== 'string' || !/^[a-z]+$/i.test(params.prefix as string)) {
             throw new Response('Bad Requset', {
@@ -67,23 +75,23 @@ const router = createBrowserRouter([
       {
         path: 'about-as',
         element: 
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
           <AboutAs/>
-        </Suspense>
+        </PageSuspenseFullback>
       },
       {
         path: 'login',
         element: 
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
           <Login/>
-        </Suspense>
+        </PageSuspenseFullback>
       },
       {
         path: 'signup',
         element: 
-        <Suspense fallback="loading please wait...">
+        <PageSuspenseFullback>
           <Signup/>
-        </Suspense>
+        </PageSuspenseFullback>
       }
     ]
   }
