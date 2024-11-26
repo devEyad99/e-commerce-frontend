@@ -10,9 +10,6 @@ import Spinner from "../../common/Spinner/Spinner";
 
 
 const Product = ({ id, title, cat_prefix, price, img, max, quantity, isLiked }: TProducts) => {
-  console.log(
-    "fire"
-  );
   
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);

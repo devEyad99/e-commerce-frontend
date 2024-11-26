@@ -30,6 +30,6 @@ export default function Loading({loading, error, children, type="category"}: Loa
     </div>
     
   }
-  console.log(error);
+
   return <>{children}</>
 }

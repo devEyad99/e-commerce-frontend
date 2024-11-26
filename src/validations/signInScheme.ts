@@ -9,7 +9,7 @@ const signInSchema = z.object({
     .email({ message: 'Invalid email address' }),
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters long' }),
+    .min(1, { message: 'Password must be at least 8 characters long' }),
 });
 
 type signInType = z.infer<typeof signInSchema>;

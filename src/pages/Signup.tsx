@@ -1,11 +1,20 @@
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { actAuthRegister, resetUI } from "../store/auth/authSlice";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Heading } from "../components/common";
 import { signUpSchema, signUpType } from "../validations/signUpScheme";
 import  { Input } from "../Form/index";
 import useCheckEmailAvailability from "../hooks/useCheckEmailAvailability";
+import Spinner from "../components/common/Spinner/Spinner";
+import { useEffect } from "react";
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const {loading, error, accessToken} = useAppSelector((state) => state.auth);
+  
   const {
     register,
     handleSubmit,
@@ -25,7 +34,10 @@ export default function Signup() {
    } = useCheckEmailAvailability();
 
   const submitForm: SubmitHandler<signUpType> = (data) => {
-    console.log(data);
+    const {firstName, lastName, email, password} = data;
+    dispatch(actAuthRegister({firstName, lastName, email, password})).unwrap().then(() => {
+      navigate('/login?message=account_created');
+    })
   };
 
 
@@ -43,6 +55,15 @@ export default function Signup() {
     
   }
 
+  useEffect(() => {
+    return () => {
+      dispatch(resetUI());
+    }
+  }, [dispatch]);
+
+  if(accessToken){
+    return <Navigate to="/"/>
+  }
   return (
     <>
       <div className="mb-3 max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -228,10 +249,11 @@ export default function Signup() {
         <button
           type="submit"
           className="w-full flex justify-center items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          disabled={emailAvailabilityStauts === "checking" ? true : false}
+          disabled={emailAvailabilityStauts === "checking" ? true : false || loading === "pending"}
         >
-          Submit
+          {loading === "pending" ? <Spinner/>  : "Submit"}
         </button>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
     </>
   );

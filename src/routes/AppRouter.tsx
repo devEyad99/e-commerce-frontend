@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PageSuspenseFullback from '../components/feedback/PageSuspenseFullback/PAgeSuspenseFullback';
 import MainLayout from '../layouts/MainLayout/MainLayout';
+import { ProtuctedRoutes } from '../components/Auth/ProtuctedRoutes';
 
 const Home = lazy(() => import ('../pages/Home'));
 const Products = lazy(() => import ('../pages/Products'));
@@ -11,7 +12,9 @@ const Login = lazy(() => import ('../pages/Login'));
 const Signup = lazy(() => import ('../pages/Signup'));
 const Cart = lazy(() => import ('../pages/Cart'));
 const Wishlist = lazy(() => import ('../pages/Wishlist'));
+const Profile = lazy(() => import('../pages/Profile'));
 import Error from '../pages/Error';
+
 
 
 const router = createBrowserRouter([
@@ -45,9 +48,11 @@ const router = createBrowserRouter([
       },{
         path: 'wishlist',
         element: 
-        <PageSuspenseFullback>
-          <Wishlist/>
+        <ProtuctedRoutes>
+          <PageSuspenseFullback>
+            <Wishlist/>
           </PageSuspenseFullback>
+        </ProtuctedRoutes>
       },
       {
         path: 'categories',
@@ -92,6 +97,14 @@ const router = createBrowserRouter([
         <PageSuspenseFullback>
           <Signup/>
         </PageSuspenseFullback>
+      },{
+        path: 'profile',
+        element: 
+        (<ProtuctedRoutes>
+         <PageSuspenseFullback>
+           <Profile/>
+         </PageSuspenseFullback>
+        </ProtuctedRoutes>)
       }
     ]
   }
