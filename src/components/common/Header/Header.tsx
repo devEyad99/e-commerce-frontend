@@ -1,6 +1,7 @@
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { actGetWishlist } from "../../../store/wishlist/wishlistSlice";
 import { authLogout } from "../../../store/auth/authSlice";
 import HeaderLiftBar from "./HeaderLiftBar/HeaderLiftBar";
 
@@ -12,6 +13,9 @@ const Header = () => {
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
 
+  useEffect(() => {
+    dispatch(actGetWishlist("productsIds"));
+  }, [dispatch, accessToken]);
   return (
     <header>
       <div className="flex justify-between items-center p-4">

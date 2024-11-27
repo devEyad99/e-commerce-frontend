@@ -1,65 +1,21 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { actAuthRegister, resetUI } from "../store/auth/authSlice";
-import { useNavigate, Navigate } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Navigate } from "react-router-dom";
+import { useRegister } from "../hooks/useRegister";
 import { Heading } from "../components/common";
-import { signUpSchema, signUpType } from "../validations/signUpScheme";
 import  { Input } from "../Form/index";
-import useCheckEmailAvailability from "../hooks/useCheckEmailAvailability";
 import Spinner from "../components/common/Spinner/Spinner";
-import { useEffect } from "react";
 
 export default function Signup() {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const {loading, error, accessToken} = useAppSelector((state) => state.auth);
-  
   const {
     register,
     handleSubmit,
-    getFieldState,
-    trigger,
-    formState: { errors },
-  } = useForm<signUpType>({
-    mode: "onBlur",
-    resolver: zodResolver(signUpSchema),
-  });
-
-  const {
-    checkEmailAvailability,
+    submitForm,
+    emialOnBlurHandler,
     emailAvailabilityStauts,
-    enterEmail,
-    resetCheckEmailAvaailability
-   } = useCheckEmailAvailability();
-
-  const submitForm: SubmitHandler<signUpType> = (data) => {
-    const {firstName, lastName, email, password} = data;
-    dispatch(actAuthRegister({firstName, lastName, email, password})).unwrap().then(() => {
-      navigate('/login?message=account_created');
-    })
-  };
-
-
-  const emialOnBlurHandler = async (event: React.FocusEvent<HTMLInputElement>) => {
-    await trigger("email");
-    const value = event.target.value;
-    const { isDirty, invalid} = getFieldState("email");
-    if(isDirty && !invalid && enterEmail !== value){
-     checkEmailAvailability(value);
-    }
-
-    if(isDirty && invalid && enterEmail){
-      resetCheckEmailAvaailability();
-    }
-    
-  }
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetUI());
-    }
-  }, [dispatch]);
+    loading,
+    error,
+    accessToken,
+    errors,
+  } = useRegister();
 
   if(accessToken){
     return <Navigate to="/"/>

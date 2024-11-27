@@ -12,6 +12,7 @@ const useProducts = () => {
   const cartItem = useAppSelector((state) => state.cart.items);
   const { error, loading, records } = useAppSelector((state) => state.products);
   const wishListItems = useAppSelector((state) => state.wishlist.itemsId);
+  const userAccessToken = useAppSelector((state) => state.auth.accessToken);
 
   const productFullInfo = useMemo(
     () =>
@@ -19,6 +20,7 @@ const useProducts = () => {
         ...el,
         quantity: cartItem[el.id as number] || 0,
         isLiked: wishListItems.includes(el.id as number),
+        isAuthenticated: userAccessToken ? true : false,
       })),
     [records, cartItem, wishListItems]
   );

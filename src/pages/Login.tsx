@@ -1,47 +1,24 @@
-import { useEffect } from "react";
-import { useSearchParams, useNavigate, Navigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { actAuthLogin, resetUI } from "../store/auth/authSlice";
-import { signInSchema, signInType } from "../validations/signInScheme"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, SubmitHandler } from "react-hook-form";
+import { Navigate } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 import { Heading } from "../components/common"
 import { Input } from "../Form"
 import Spinner from "../components/common/Spinner/Spinner";
 
 export default function Login() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const {error, loading, accessToken} = useAppSelector((state) => state.auth)
-  
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<signInType>({
-    mode: "onBlur",
-    resolver: zodResolver(signInSchema),
-  });
-
-  const submitForm: SubmitHandler<signInType> = (data) => {
-    if(searchParams.get("message")){
-      setSearchParams("");
-    }
-    dispatch(actAuthLogin(data)).unwrap().then(() => navigate("/"));
-    
-  };
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetUI());
-    }
-  }, [dispatch]);
-
-  if(accessToken){ 
-    return <Navigate to="/"/>
+    submitForm,
+    errors,
+    error,
+    loading,
+    accessToken,
+    searchParams,
+  } = useLogin();
+  
+  if (accessToken) {
+    return <Navigate to="/" />;
   }
-
   return (
     <>
     <div className="mb-3 space-y-6 max-w-md mx-auto bg-white p-6 rounded-lg shadow-md ">

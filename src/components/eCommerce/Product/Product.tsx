@@ -9,12 +9,13 @@ import LikeFill from "../../../asset/svg/like-fill.svg?react";
 import Spinner from "../../common/Spinner/Spinner";
 
 
-const Product = ({ id, title, cat_prefix, price, img, max, quantity, isLiked }: TProducts) => {
+const Product = ({ id, title, cat_prefix, price, img, max, quantity, isLiked, isAuthenticated }: TProducts) => {
   
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const [currentRemainingQuantity, setCurrentRemainingQuantity] = useState(Math.max(0, (max ?? 0) - (quantity ?? 0)));
   const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
 
   useEffect(() => {
@@ -35,17 +36,51 @@ const Product = ({ id, title, cat_prefix, price, img, max, quantity, isLiked }: 
   };
 
   const likeToggleHandler = () => {
-    if(isLoading){
-      return;
+    console.log("isAuthenticated:", isAuthenticated);
+    if(isAuthenticated){
+      if(!isLoading){
+        setIsLoading(true);
+        dispatch(actLikeToggle(id as number))
+        .unwrap()
+        .then(() => setIsLoading(false))
+        .catch(() => setIsLoading(false))
+      }
+    }else{
+      setShowModal(true);
     }
-    setIsLoading(true);
-    dispatch(actLikeToggle(id as number))
-    .unwrap()
-    .then(() => setIsLoading(false))
-    .catch(() => setIsLoading(false))
   }
 
   return (
+    <>
+     {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white w-11/12 md:w-1/2 lg:w-1/3 p-6 rounded-lg shadow-lg">
+            <div className="flex justify-between items-center border-b pb-3">
+              <h3 className="text-lg font-bold">Login Required</h3>
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-gray-500 hover:text-gray-800 focus:outline-none"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="mt-4">
+              <p className="text-gray-700">
+                You need to login first to add this item to your wishlist.
+              </p>
+            </div>
+            <div className="mt-6 flex justify-end space-x-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     <div className="w-48 flex flex-col justify-between p-4 bg-gray-200 shadow-md rounded-lg relative">
       <div onClick={likeToggleHandler} className="absolute top-1.5 right-1.5 bg-white w-7 h-7 rounded flex items-center justify-center cursor-pointer hover:shadow-md">
        {isLoading ? (<Spinner/>) : isLiked ? (<LikeFill/> ) : (<Like />)}
@@ -82,6 +117,7 @@ const Product = ({ id, title, cat_prefix, price, img, max, quantity, isLiked }: 
         )}
       </button>
     </div>
+    </>
   );
 };
 
