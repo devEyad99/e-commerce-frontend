@@ -3,11 +3,13 @@ import CategorySkeletons from "../skeletons/CategorySkeleton/CategorySkeletons";
 import ProductSkeleton from "../skeletons/ProductSkeleton/ProductSkeleton";
 import CartSkeleton from "../skeletons/CartSkeleton/CartSkeleton";
 import LottieHandler from "../LottieHandler/LottieHandler";
+import TableSkeleton from "../skeletons/TabelSkeleton/TableSkeleton";
 
 const skeletonsTypes = {
   product: ProductSkeleton,
   cart: CartSkeleton,
-  category: CategorySkeletons
+  category: CategorySkeletons,
+  tabel: TableSkeleton
 }
 
 interface LoadingProps {

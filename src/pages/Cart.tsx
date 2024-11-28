@@ -5,14 +5,18 @@ import { Loading, LottieHandler } from "../components/feedback";
 
 export default function Cart() {
   
-  const { products, loading, error, changeQuantityHandler, removeItemHandler } = useCart();
+  const { products, loading, error, changeQuantityHandler, removeItemHandler, userAccessToken, placeOrderStatus } = useCart();
   return (
     <>
       <Heading title="Your Cart" />
       <Loading loading={loading} error={error} type="cart">
-        {products.length === 0 ? (
+        {placeOrderStatus === "succeeded" ? (
           <div className="text-center text-lg font-bold">
-            <LottieHandler type="shoppingError" message="Your cart is empty"/>
+            <LottieHandler type="success" message="Order placed successfully" />
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center text-lg font-bold">
+            <LottieHandler type="shoppingError" message="Your cart is empty" />
           </div>
         ) : (
           <>
@@ -21,7 +25,10 @@ export default function Cart() {
               changeQuantityHandler={changeQuantityHandler}
               removeItemHandler={removeItemHandler}
             />
-            <CartSubtotalPrice products={products} />
+            <CartSubtotalPrice
+              products={products}
+              userAccessToken={userAccessToken}
+            />
           </>
         )}
       </Loading>

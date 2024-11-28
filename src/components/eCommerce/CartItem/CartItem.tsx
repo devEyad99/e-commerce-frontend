@@ -1,5 +1,6 @@
 import { TProducts } from "../../../types";
 import { memo } from "react";
+import { ProductInfo } from "../ProductInfo/ProductInfo";
 
 type CartItemProps = TProducts & {
   quantity: number;
@@ -27,7 +28,7 @@ const CartItem = memo(({ id, title, img, price, max, quantity, changeQuantityHan
 
   return (
     <div className="flex justify-between items-center pb-2 mb-2 border-b border-gray-300">
-      <div className="flex">
+      {/* <div className="flex">
         <div className="bg-gray-200">
           <img
             src={img}
@@ -42,8 +43,12 @@ const CartItem = memo(({ id, title, img, price, max, quantity, changeQuantityHan
             Remove
           </button>
         </div>
-      </div>
-
+      </div> */}
+       <ProductInfo style="flex" title={title} img={img} price={price}>
+        <button className="mt-auto mb-2 w-[100px] bg-gray-500 text-white py-1 px-3 rounded" onClick={() => id !== undefined && removeItemHandler(id)}>
+          Remove
+        </button>
+       </ProductInfo>
       <div>
         <span className="block mb-1">Quantity</span>
         <select

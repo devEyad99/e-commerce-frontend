@@ -3,12 +3,15 @@ import notFound from '../../../asset/lottieFiles/notFound.json';
 import shoppingError from "../../../asset/lottieFiles/shoppingError.json";
 import shoppingLoading from "../../../asset/lottieFiles/shoppingLoading.json";
 import error from "../../../asset/lottieFiles/error.json";
+import success from "../../../asset/lottieFiles/success.json";
+
 
 const lottieFilesMap = {
   notFound,
   shoppingError,
   shoppingLoading,
-  error
+  error,
+  success
 }
 
 type LottieHandlerProps = {
