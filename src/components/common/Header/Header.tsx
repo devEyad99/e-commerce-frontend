@@ -16,6 +16,8 @@ const Header = () => {
   useEffect(() => {
     dispatch(actGetWishlist("productsIds"));
   }, [dispatch, accessToken]);
+
+
   return (
     <header>
       <div className="flex justify-between items-center p-4">

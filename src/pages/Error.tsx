@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import Lottie from 'lottie-react';
-import notFound from "../asset/lottieFiles/notFound.json";
+
 import { LottieHandler } from '../components/feedback';
 
 export default function Error() {
