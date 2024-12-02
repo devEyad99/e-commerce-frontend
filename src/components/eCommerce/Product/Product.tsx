@@ -124,7 +124,7 @@
 // export default memo(Product);
 
 import { TProducts } from "../../../types/product";
-import { useAppDispatch } from "../../../store/categories/hooks";
+import { useAppDispatch } from "../../../store/cart/selectors/hooks";
 import { actLikeToggle } from "../../../store/wishlist/wishlistSlice";
 import { addToCart } from "../../../store/cart/cartSlice";
 import { memo, useEffect, useState } from "react";

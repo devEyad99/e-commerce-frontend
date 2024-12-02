@@ -1,6 +1,6 @@
 //..
 import { useCallback, useEffect, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/categories/hooks';
+import { useAppDispatch, useAppSelector } from '../store/cart/selectors/hooks';
 import actGetProductById from '../store/cart/act/actGetProductsById';
 import {
   cartItemChangeQuantity,

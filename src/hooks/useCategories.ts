@@ -4,7 +4,7 @@ import {
   actGetCategories,
   cleanUpCategoriesRecords,
 } from '../store/categories/categoriesSlice';
-import { useAppDispatch, useAppSelector } from '../store/categories/hooks';
+import { useAppDispatch, useAppSelector } from '../store/cart/selectors/hooks';
 
 const useCategories = () => {
   const dispatch = useAppDispatch();

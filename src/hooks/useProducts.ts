@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/categories/hooks';
+import { useAppDispatch, useAppSelector } from '../store/cart/selectors/hooks';
 import {
   actGetProducts,
   cleanUpProductRecords,
